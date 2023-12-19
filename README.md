@@ -1,4 +1,4 @@
-# Full Stack Web Development - University of Helsinki
+# Full Stack Web Development / University of Helsinki
 
 ## My Submissions
 
