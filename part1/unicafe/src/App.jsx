@@ -9,6 +9,14 @@ function Button({ title, onClick }) {
   );
 }
 
+function StatisticsLine({ name, value }) {
+  return (
+    <div>
+      {name}: <span>{value}</span>
+    </div>
+  );
+}
+
 function Statistics({ feedback }) {
   const { good, neutral, bad, total, averageScore, positivePercent } = feedback;
 
@@ -18,24 +26,12 @@ function Statistics({ feedback }) {
 
   return (
     <>
-      <div>
-        Good: <span>{good}</span>
-      </div>
-      <div>
-        Neutral: <span>{neutral}</span>
-      </div>
-      <div>
-        Bad: <span>{bad}</span>
-      </div>
-      <div>
-        All: <span>{total}</span>
-      </div>
-      <div>
-        Average: <span>{averageScore}</span>
-      </div>
-      <div>
-        Positive: <span>{positivePercent}%</span>
-      </div>
+      <StatisticsLine name="Good" value={good} />
+      <StatisticsLine name="Neutral" value={neutral} />
+      <StatisticsLine name="Bad" value={bad} />
+      <StatisticsLine name="All" value={total} />
+      <StatisticsLine name="Average" value={averageScore} />
+      <StatisticsLine name="Positive" value={positivePercent + '%'} />
     </>
   );
 }
