@@ -11,6 +11,11 @@ function Button({ title, onClick }) {
 
 function Statistics({ feedback }) {
   const { good, neutral, bad, total, averageScore, positivePercent } = feedback;
+
+  if (total === 0) {
+    return <p>No feedback given</p>;
+  }
+
   return (
     <>
       <div>
