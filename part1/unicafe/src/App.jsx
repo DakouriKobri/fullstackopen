@@ -9,18 +9,27 @@ function Button({ title, onClick }) {
   );
 }
 
-function RawStatistics({ feedback }) {
-  const { good, neutral, bad } = feedback;
+function Statistics({ feedback }) {
+  const { good, neutral, bad, total, averageScore, positivePercent } = feedback;
   return (
     <>
       <div>
-        good <span>{good}</span>
+        Good: <span>{good}</span>
       </div>
       <div>
-        neutral <span>{neutral}</span>
+        Neutral: <span>{neutral}</span>
       </div>
       <div>
-        good <span>{bad}</span>
+        Bad: <span>{bad}</span>
+      </div>
+      <div>
+        All: <span>{total}</span>
+      </div>
+      <div>
+        Average: <span>{averageScore}</span>
+      </div>
+      <div>
+        Positive: <span>{positivePercent}%</span>
       </div>
     </>
   );
@@ -31,7 +40,17 @@ function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const feedback = { good, neutral, bad };
+  const total = good + neutral + bad;
+
+  let averageScore = 0;
+  let positivePercent = 0;
+
+  if (total > 0) {
+    averageScore = (+1 * good + 0 * neutral + -1 * bad) / total;
+    positivePercent = (good / total) * 100;
+  }
+
+  const feedback = { good, neutral, bad, total, averageScore, positivePercent };
 
   function handleGood() {
     const newGood = good + 1;
@@ -57,7 +76,7 @@ function App() {
       <Button onClick={handleBad} title="Bad" />
 
       <h2>Statistics</h2>
-      <RawStatistics feedback={feedback} />
+      <Statistics feedback={feedback} />
     </div>
   );
 }
