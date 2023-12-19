@@ -2,17 +2,17 @@ function Header(props) {
   return <h1>{props.course}</h1>;
 }
 
-function Content(prop) {
+function Content(props) {
   return (
     <>
       <p>
-        {prop.part1} {prop.exercises1}
+        {props.part1} {props.exercises1}
       </p>
       <p>
-        {prop.part2} {prop.exercises2}
+        {props.part2} {props.exercises2}
       </p>
       <p>
-        {prop.part3} {prop.exercises3}
+        {props.part3} {props.exercises3}
       </p>
     </>
   );
