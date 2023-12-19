@@ -11,9 +11,10 @@ function Button({ title, onClick }) {
 
 function StatisticsLine({ name, value }) {
   return (
-    <div>
-      {name}: <span>{value}</span>
-    </div>
+    <tr>
+      <td>{name}</td>
+      <td>{value}</td>
+    </tr>
   );
 }
 
@@ -25,14 +26,16 @@ function Statistics({ feedback }) {
   }
 
   return (
-    <>
-      <StatisticsLine name="Good" value={good} />
-      <StatisticsLine name="Neutral" value={neutral} />
-      <StatisticsLine name="Bad" value={bad} />
-      <StatisticsLine name="All" value={total} />
-      <StatisticsLine name="Average" value={averageScore} />
-      <StatisticsLine name="Positive" value={positivePercent + '%'} />
-    </>
+    <table>
+      <tbody>
+        <StatisticsLine name="Good" value={good} />
+        <StatisticsLine name="Neutral" value={neutral} />
+        <StatisticsLine name="Bad" value={bad} />
+        <StatisticsLine name="All" value={total} />
+        <StatisticsLine name="Average" value={averageScore} />
+        <StatisticsLine name="Positive" value={positivePercent + '%'} />
+      </tbody>
+    </table>
   );
 }
 
