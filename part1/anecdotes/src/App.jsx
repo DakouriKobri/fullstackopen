@@ -12,17 +12,29 @@ const anecdotes = [
   'The only way to go fast, is to go well.',
 ];
 
+const votesArray = Array(8).fill(0);
+
 function App() {
   const [selected, setSelected] = useState(0);
+  const [anecdotesVotes, setAnecdotesVotes] = useState(votesArray);
 
   function handleSelected() {
     const randomIndex = Math.floor(Math.random() * anecdotes.length);
     setSelected(randomIndex);
   }
 
+  function handleVote() {
+    const newAnecdotesVotes = [...anecdotesVotes];
+    newAnecdotesVotes[selected] += 1;
+    setAnecdotesVotes(newAnecdotesVotes);
+  }
+
   return (
     <div>
-      <h3>{anecdotes[selected]}</h3>
+      <h3>&quot;{anecdotes[selected]}&quot;</h3>
+      <button onClick={handleVote} type="button">
+        👍 Vote
+      </button>
       <button onClick={handleSelected} type="button">
         Next Anecdote
       </button>
