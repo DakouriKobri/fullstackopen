@@ -8,6 +8,17 @@ function App() {
   function addName(event) {
     event.preventDefault();
 
+    console.log('persons:', persons);
+    console.log('newName:', newName);
+
+    persons.forEach((person) => {
+      if (person.name === newName) {
+        alert(`${newName}  is already added to phonebook.`);
+        console.log('Name in list?:', person.name);
+        throw new Error(`${newName}  is already added to phonebook.`);
+      }
+    });
+
     const newNameObject = {
       name: newName,
     };
