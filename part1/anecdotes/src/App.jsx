@@ -14,6 +14,18 @@ const anecdotes = [
 
 const votesArray = Array(8).fill(0);
 
+function MostVotedAnecdote({ anecdote, highestVote }) {
+  if (highestVote === 0) {
+    return <p>No anecdote was voted yet.</p>;
+  }
+  return (
+    <>
+      <h3>&quot;{anecdote}&quot;</h3>
+      <p>has {highestVote} votes</p>
+    </>
+  );
+}
+
 function App() {
   const [selected, setSelected] = useState(0);
   const [anecdotesVotes, setAnecdotesVotes] = useState(votesArray);
@@ -29,8 +41,22 @@ function App() {
     setAnecdotesVotes(newAnecdotesVotes);
   }
 
+  function mostVoted() {
+    let index = 0;
+    let highestVote = 0;
+    for (let i = 0; i < anecdotesVotes.length; i++) {
+      if (anecdotesVotes[i] > highestVote) {
+        highestVote = anecdotesVotes[i];
+        index = i;
+      }
+    }
+
+    return { index, highestVote };
+  }
+
   return (
     <div>
+      <h2>Anecdote of the Day</h2>
       <h3>&quot;{anecdotes[selected]}&quot;</h3>
       <p>has {anecdotesVotes[selected]} votes</p>
       <button onClick={handleVote} type="button">
@@ -39,6 +65,12 @@ function App() {
       <button onClick={handleSelected} type="button">
         Next Anecdote
       </button>
+
+      <h2>Anecdote with most Votes</h2>
+      <MostVotedAnecdote
+        anecdote={anecdotes[mostVoted().index]}
+        highestVote={mostVoted().highestVote}
+      />
     </div>
   );
 }
