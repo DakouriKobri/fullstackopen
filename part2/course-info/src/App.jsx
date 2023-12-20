@@ -15,12 +15,19 @@ function Content({ parts }) {
   return <>{partsList}</>;
 }
 
+function Total({ sum }) {
+  return <strong>Total of {sum} exercises</strong>;
+}
+
 function Course({ course }) {
   const { name, parts } = course;
+  const sumOfExercises = parts.reduce((sum, part) => sum + part.exercises, 0);
+
   return (
     <>
       <Header name={name} />
       <Content parts={parts} />
+      <Total sum={sumOfExercises} />
     </>
   );
 }
@@ -44,6 +51,11 @@ function App() {
         name: 'State of a component',
         exercises: 14,
         id: 3,
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4,
       },
     ],
   };
