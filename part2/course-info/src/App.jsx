@@ -1,39 +1,8 @@
-function Header({ name }) {
-  return <h1>{name}</h1>;
-}
+// Local Files
+import Course from './components/Course';
 
-function Part({ part }) {
-  return (
-    <p>
-      {part.name} {part.exercises}
-    </p>
-  );
-}
-
-function Content({ parts }) {
-  const partsList = parts.map((part) => <Part key={part.id} part={part} />);
-  return <>{partsList}</>;
-}
-
-function Total({ sum }) {
-  return <strong>Total of {sum} exercises</strong>;
-}
-
-function Course({ course }) {
-  const { name, parts } = course;
-  const sumOfExercises = parts.reduce((sum, part) => sum + part.exercises, 0);
-
-  return (
-    <>
-      <Header name={name} />
-      <Content parts={parts} />
-      <Total sum={sumOfExercises} />
-    </>
-  );
-}
-
-function App() {
-  const course = {
+const courses = [
+  {
     id: 1,
     name: 'Half Stack application development',
     parts: [
@@ -58,9 +27,36 @@ function App() {
         id: 4,
       },
     ],
-  };
+  },
+  {
+    name: 'Node.js',
+    id: 2,
+    parts: [
+      {
+        name: 'Routing',
+        exercises: 3,
+        id: 1,
+      },
+      {
+        name: 'Middlewares',
+        exercises: 7,
+        id: 2,
+      },
+    ],
+  },
+];
 
-  return <Course course={course} />;
+function App() {
+  const coursesList = courses.map((course) => (
+    <Course key={course.id} course={course} />
+  ));
+
+  return (
+    <>
+      <h1>Web Development Curriculum</h1>
+      <div>{coursesList}</div>
+    </>
+  );
 }
 
 export default App;
