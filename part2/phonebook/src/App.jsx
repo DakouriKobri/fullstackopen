@@ -3,21 +3,21 @@ import { useState } from 'react';
 
 function App() {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-1234567' },
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 },
   ]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
+  const [searchedTerm, setSearchedTerm] = useState('');
 
   function addName(event) {
     event.preventDefault();
 
-    console.log('persons:', persons);
-    console.log('newName:', newName);
-
     persons.forEach((person) => {
       if (person.name === newName) {
         alert(`${newName}  is already added to phonebook.`);
-        console.log('Name in list?:', person.name);
         throw new Error(`${newName}  is already added to phonebook.`);
       }
     });
@@ -40,7 +40,15 @@ function App() {
     setNewNumber(event.target.value);
   }
 
-  const personsList = persons.map((person) => (
+  function handleSearch(event) {
+    setSearchedTerm(event.target.value);
+  }
+
+  const filteredPersons = persons.filter((person) =>
+    person.name.toLowerCase().includes(searchedTerm.toLowerCase())
+  );
+
+  const personsList = filteredPersons.map((person) => (
     <div key={person.name}>
       {person.name} {person.number}
     </div>
@@ -48,9 +56,16 @@ function App() {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+
+      <div>
+        Filter show with{' '}
+        <input type="search" value={searchedTerm} onChange={handleSearch} />
+      </div>
 
       <form onSubmit={addName}>
+        <h2>Add a New Entry</h2>
+
         <div>
           name: <input value={newName} onChange={handleNameChange} />
         </div>
