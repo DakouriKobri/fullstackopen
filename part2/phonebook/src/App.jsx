@@ -32,6 +32,16 @@ function App() {
     });
   }
 
+  function handleDeletePerson(id) {
+    const personToDelete = persons.find((person) => person.id === id);
+
+    if (!window.confirm(`Delete ${personToDelete.name}?`)) return;
+
+    personService.deletePerson(id).then(() => {
+      setPersons(persons.filter((person) => person.id !== id));
+    });
+  }
+
   function handleSearch(term) {
     setSearchedTerm(term);
   }
@@ -50,7 +60,7 @@ function App() {
       <PersonForm onAddPerson={handleAddPerson} />
 
       <h3>Numbers</h3>
-      <Persons people={filteredPersons} />
+      <Persons people={filteredPersons} onDeletePerson={handleDeletePerson} />
     </div>
   );
 }
