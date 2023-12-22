@@ -19,14 +19,19 @@ function App() {
   }, []);
 
   function handleAddPerson(newPerson) {
-    persons.forEach((person) => {
-      if (person.name === newPerson.name) {
-        alert(`${newPerson.name}  is already added to phonebook.`);
-        throw new Error(`${newPerson.name}  is already added to phonebook.`);
-      }
+    const isAlreadyInPhonebook = persons.some(
+      (person) => person.name === newPerson.name
+    );
+
+    if (isAlreadyInPhonebook) {
+      alert(`${newPerson.name}  is already added to phonebook.`);
+      return;
+    }
+
+    axios.post('http://localhost:3001/persons', newPerson).then((response) => {
+      const createdPerson = response.data;
+      setPersons([...persons, createdPerson]);
     });
-    const newPersonObject = { ...newPerson, id: persons.length + 1 };
-    setPersons(persons.concat(newPersonObject));
   }
 
   function handleSearch(term) {
