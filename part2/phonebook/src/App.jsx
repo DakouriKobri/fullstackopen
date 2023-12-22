@@ -1,20 +1,19 @@
 // NPM Packages
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 // Local Files
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import Filter from './components/Filter';
+import personService from './service/person';
 
 function App() {
   const [persons, setPersons] = useState([]);
   const [searchedTerm, setSearchedTerm] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then((response) => {
-      const persons = response.data;
-      setPersons(persons);
+    personService.getAllPersons().then((allPersons) => {
+      setPersons(allPersons);
     });
   }, []);
 
@@ -28,8 +27,7 @@ function App() {
       return;
     }
 
-    axios.post('http://localhost:3001/persons', newPerson).then((response) => {
-      const createdPerson = response.data;
+    personService.createPerson(newPerson).then((createdPerson) => {
       setPersons([...persons, createdPerson]);
     });
   }
@@ -38,9 +36,9 @@ function App() {
     setSearchedTerm(term);
   }
 
-  const filteredPersons = persons.filter((person) =>
-    person.name.toLowerCase().includes(searchedTerm.toLowerCase())
-  );
+  const filteredPersons = persons.filter((person) => {
+    return person.name.toLowerCase().includes(searchedTerm.toLowerCase());
+  });
 
   return (
     <div>
