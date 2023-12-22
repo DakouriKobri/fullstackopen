@@ -12,7 +12,7 @@ function App() {
   const [searchedTerm, setSearchedTerm] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3301/persons').then((response) => {
+    axios.get('http://localhost:3001/persons').then((response) => {
       const persons = response.data;
       setPersons(persons);
     });
