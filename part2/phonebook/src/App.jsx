@@ -11,8 +11,9 @@ import Notification from './components/Notification';
 function App() {
   const [persons, setPersons] = useState([]);
   const [searchedTerm, setSearchedTerm] = useState('');
-  const [successMessage, setSuccessMessage] = useState('Added Yawah');
+  const [notificationMessage, setNotificationMessage] = useState('Added Yawah');
   const [showMessage, setShowMessage] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     personService.getAllPersons().then((allPersons) => {
@@ -46,7 +47,18 @@ function App() {
               person.id === updatedPerson.id ? updatedPerson : person
             );
             setPersons(updatedPersons);
-            setSuccessMessage(`Updated ${updatedPerson.name}'s phone number`);
+            setNotificationMessage(
+              `Updated ${updatedPerson.name}'s phone number`
+            );
+            setIsError(false);
+            setShowMessage(true);
+          })
+          .catch((error) => {
+            console.log(error.message);
+            setNotificationMessage(
+              `Information of ${personInPhonebook.name} has already been removed from server`
+            );
+            setIsError(true);
             setShowMessage(true);
           });
       }
@@ -56,7 +68,8 @@ function App() {
     // If person is not already added to phonebook, had him/her
     personService.createPerson(newPerson).then((createdPerson) => {
       setPersons([...persons, createdPerson]);
-      setSuccessMessage(`Added ${createdPerson.name}`);
+      setNotificationMessage(`Added ${createdPerson.name}`);
+      setIsError(false);
       setShowMessage(true);
     });
   }
@@ -83,7 +96,9 @@ function App() {
     <div>
       <h2>Phonebook</h2>
 
-      {showMessage && <Notification message={successMessage} />}
+      {showMessage && (
+        <Notification message={notificationMessage} isError={isError} />
+      )}
       <Filter searchedTerm={searchedTerm} onSearch={handleSearch} />
 
       <h3>Add a New Entry</h3>
