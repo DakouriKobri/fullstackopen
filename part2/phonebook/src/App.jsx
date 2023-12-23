@@ -18,15 +18,32 @@ function App() {
   }, []);
 
   function handleAddPerson(newPerson) {
-    const isAlreadyInPhonebook = persons.some(
+    // Check if the person already exists in the phonebook
+    const personInPhonebook = persons.find(
       (person) => person.name === newPerson.name
     );
 
-    if (isAlreadyInPhonebook) {
-      alert(`${newPerson.name}  is already added to phonebook.`);
+    // If person already exists, check if his/her number needs to be updated
+    // if yes, update; if no return
+    if (personInPhonebook) {
+      if (
+        window.confirm(
+          `${newPerson.name} is already added to phonebook. Replace the old number with a new one?`
+        )
+      ) {
+        personService
+          .updatePerson(personInPhonebook.id, newPerson)
+          .then((updatedPerson) => {
+            const updatedPersons = persons.map((person) =>
+              person.id === updatedPerson.id ? updatedPerson : person
+            );
+            setPersons(updatedPersons);
+          });
+      }
       return;
     }
 
+    // If person is not already added to phonebook, had him/her
     personService.createPerson(newPerson).then((createdPerson) => {
       setPersons([...persons, createdPerson]);
     });
