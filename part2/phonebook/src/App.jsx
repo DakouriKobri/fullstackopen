@@ -6,16 +6,24 @@ import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import Filter from './components/Filter';
 import personService from './service/person';
+import Notification from './components/Notification';
 
 function App() {
   const [persons, setPersons] = useState([]);
   const [searchedTerm, setSearchedTerm] = useState('');
+  const [successMessage, setSuccessMessage] = useState('Added Yawah');
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     personService.getAllPersons().then((allPersons) => {
       setPersons(allPersons);
     });
   }, []);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setShowMessage(false), 3000);
+    return () => clearTimeout(timeoutId);
+  }, [showMessage]);
 
   function handleAddPerson(newPerson) {
     // Check if the person already exists in the phonebook
@@ -38,6 +46,8 @@ function App() {
               person.id === updatedPerson.id ? updatedPerson : person
             );
             setPersons(updatedPersons);
+            setSuccessMessage(`Updated ${updatedPerson.name}'s phone number`);
+            setShowMessage(true);
           });
       }
       return;
@@ -46,6 +56,8 @@ function App() {
     // If person is not already added to phonebook, had him/her
     personService.createPerson(newPerson).then((createdPerson) => {
       setPersons([...persons, createdPerson]);
+      setSuccessMessage(`Added ${createdPerson.name}`);
+      setShowMessage(true);
     });
   }
 
@@ -71,6 +83,7 @@ function App() {
     <div>
       <h2>Phonebook</h2>
 
+      {showMessage && <Notification message={successMessage} />}
       <Filter searchedTerm={searchedTerm} onSearch={handleSearch} />
 
       <h3>Add a New Entry</h3>
