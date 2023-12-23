@@ -1,5 +1,10 @@
+// Local Files
+import Weather from './Weather';
+
 function Country({ country }) {
-  const { area, capital, flags, languages, name } = country;
+  const { area, capital, capitalInfo, flags, languages, name } = country;
+
+  const [lat, lon] = capitalInfo.latlng;
 
   const languagesList = Object.values(languages).map((language) => (
     <li key={language}>{language}</li>
@@ -18,6 +23,7 @@ function Country({ country }) {
       <ul>{languagesList}</ul>
 
       <img src={flags.png} alt={flags.alt} height={150} />
+      <Weather lat={lat} lon={lon} />
     </div>
   );
 }
