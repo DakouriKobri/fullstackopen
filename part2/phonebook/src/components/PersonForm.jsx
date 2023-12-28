@@ -13,7 +13,7 @@ function PersonForm({ onAddPerson }) {
     setNewNumber(event.target.value);
   }
 
-  function addName(event) {
+  function addPerson(event) {
     event.preventDefault();
 
     const newPerson = {
@@ -27,7 +27,7 @@ function PersonForm({ onAddPerson }) {
   }
 
   return (
-    <form onSubmit={addName}>
+    <form onSubmit={addPerson}>
       <div>
         name: <input value={newName} onChange={handleNameChange} />
       </div>

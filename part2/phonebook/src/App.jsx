@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import Filter from './components/Filter';
-import personService from './service/person';
+import personService from './services/person';
 import Notification from './components/Notification';
 
 function App() {
   const [persons, setPersons] = useState([]);
   const [searchedTerm, setSearchedTerm] = useState('');
-  const [notificationMessage, setNotificationMessage] = useState('Added Yawah');
+  const [notificationMessage, setNotificationMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [isError, setIsError] = useState(false);
 

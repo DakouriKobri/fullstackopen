@@ -1,7 +1,7 @@
 function Filter({ onSearch, searchedTerm }) {
   return (
     <div>
-      Filter show with{' '}
+      Filter shown with{' '}
       <input
         type="search"
         value={searchedTerm}
