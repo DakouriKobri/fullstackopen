@@ -81,6 +81,9 @@ function App() {
 
     personService.deletePerson(id).then(() => {
       setPersons(persons.filter((person) => person.id !== id));
+      setNotificationMessage(`Deleted ${personToDelete.name}`);
+      setIsError(true);
+      setShowMessage(true);
     });
   }
 
