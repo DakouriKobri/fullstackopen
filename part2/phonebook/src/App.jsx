@@ -53,11 +53,7 @@ function App() {
             setIsError(false);
           })
           .catch((error) => {
-            console.log(error.message);
-            setNotificationMessage(
-              `Information of ${personInPhonebook.name} has already been removed from server`
-            );
-            console.log('error updating person:', error.response.data.error);
+            console.log('error updating person:', error.message);
             setIsError(true);
             setNotificationMessage(error.response.data.error);
           })
@@ -75,7 +71,7 @@ function App() {
         setIsError(false);
       })
       .catch((error) => {
-        console.log('error creating person:', error.response.data.error);
+        console.log('error creating person:', error.message);
         setIsError(true);
         setNotificationMessage(error.response.data.error);
       })
