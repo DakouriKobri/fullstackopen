@@ -97,17 +97,17 @@ function App() {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
 
       {showMessage && (
         <Notification message={notificationMessage} isError={isError} />
       )}
       <Filter searchedTerm={searchedTerm} onSearch={handleSearch} />
 
-      <h3>Add a New Entry</h3>
+      <h2>Add a New Entry</h2>
       <PersonForm onAddPerson={handleAddPerson} />
 
-      <h3>Numbers</h3>
+      <h2>Numbers</h2>
       <Persons people={filteredPersons} onDeletePerson={handleDeletePerson} />
     </div>
   );
