@@ -51,27 +51,35 @@ function App() {
               `Updated ${updatedPerson.name}'s phone number`
             );
             setIsError(false);
-            setShowMessage(true);
           })
           .catch((error) => {
             console.log(error.message);
             setNotificationMessage(
               `Information of ${personInPhonebook.name} has already been removed from server`
             );
+            console.log('error updating person:', error.response.data.error);
             setIsError(true);
-            setShowMessage(true);
-          });
+            setNotificationMessage(error.response.data.error);
+          })
+          .finally(() => setShowMessage(true));
       }
       return;
     }
 
     // If person is not already added to phonebook, had him/her
-    personService.createPerson(newPerson).then((createdPerson) => {
-      setPersons([...persons, createdPerson]);
-      setNotificationMessage(`Added ${createdPerson.name}`);
-      setIsError(false);
-      setShowMessage(true);
-    });
+    personService
+      .createPerson(newPerson)
+      .then((createdPerson) => {
+        setPersons([...persons, createdPerson]);
+        setNotificationMessage(`Added ${createdPerson.name}`);
+        setIsError(false);
+      })
+      .catch((error) => {
+        console.log('error creating person:', error.response.data.error);
+        setIsError(true);
+        setNotificationMessage(error.response.data.error);
+      })
+      .finally(() => setShowMessage(true));
   }
 
   function handleDeletePerson(id) {
@@ -92,7 +100,7 @@ function App() {
   }
 
   const filteredPersons = persons.filter((person) => {
-    return person.name.toLowerCase().includes(searchedTerm.toLowerCase());
+    return person?.name?.toLowerCase().includes(searchedTerm.toLowerCase());
   });
 
   return (
