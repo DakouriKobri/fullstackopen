@@ -11,7 +11,7 @@
 
 ### Installation
 
-After cloning the repository, cd into the project interest in part1 or part2, then use [npm](https://docs.npmjs.com/cli/v6/commands/npm-install) as follows to install all the dependencies:
+After cloning the repository, cd into the directory of the project of interest in part1 or part2, then use [npm](https://docs.npmjs.com/cli/v6/commands/npm-install) as follows to install all the dependencies:
 
 ```bash
   npm install
