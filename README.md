@@ -8,3 +8,17 @@
 | 1    | [Introduction to React](https://github.com/DakouriKobri/fullstackopen/tree/main/part1)                                          |
 | 2    | [Communicating with server](https://github.com/DakouriKobri/fullstackopen/tree/main/part2)                                      |
 | 3    | [Programming a server with NodeJS and Express](https://github.com/DakouriKobri/fullstackopen-part3-phonebook-backend/tree/main) |
+
+### Installation
+
+After cloning the repository, cd into the project interest in part1 or part2, then use [npm](https://docs.npmjs.com/cli/v6/commands/npm-install) as follows to install all the dependencies:
+
+```bash
+  npm install
+```
+
+Next, run the app with
+
+```bash
+  npm run dev
+```
